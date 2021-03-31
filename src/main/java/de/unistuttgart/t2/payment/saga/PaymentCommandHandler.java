@@ -1,8 +1,11 @@
 package de.unistuttgart.t2.payment.saga;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.unistuttgart.t2.common.commands.payment.PaymentAction;
+import de.unistuttgart.t2.common.commands.ActionCommand;
+import de.unistuttgart.t2.common.commands.SagaCommand;
 import de.unistuttgart.t2.payment.PaymentService;
 import io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder;
 import io.eventuate.tram.commands.consumer.CommandHandlers;
@@ -12,26 +15,32 @@ import io.eventuate.tram.sagas.participant.SagaCommandHandlersBuilder;
 
 public class PaymentCommandHandler {
 
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	private PaymentService paymentService;
 
 	public CommandHandlers commandHandlers() {
-		return SagaCommandHandlersBuilder.fromChannel("payment").onMessage(PaymentAction.class, this::checkCredit)
-				.build();
+		return SagaCommandHandlersBuilder.fromChannel(SagaCommand.payment)
+				.onMessage(ActionCommand.class, this::doAction).build();
 	}
 
 	/**
 	 * the message remains in the incoming queue, until _this_ method returns it's
-	 * message. if the service crashes midway, and no message is returned, then the incoming message remains in the queue!!
+	 * message. if the service crashes midway, and no message is returned, then the
+	 * incoming message remains in the queue!!
 	 * 
 	 * @param cm
 	 * @return
 	 */
-	public Message checkCredit(CommandMessage<PaymentAction> cm) {
-		PaymentAction ccc = cm.getCommand();
-		if (paymentService.handleSagaAction(ccc.getSessionId())) {
+	public Message doAction(CommandMessage<ActionCommand> cm) {
+		LOG.info("payment received action");
+		ActionCommand ccc = cm.getCommand();
+		try {
+			paymentService.handleSagaAction(ccc.getData().getCreditCardInfo(), ccc.getData().getTotal());
 			return CommandHandlerReplyBuilder.withSuccess();
-		} else {
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
 			return CommandHandlerReplyBuilder.withFailure();
 		}
 	}

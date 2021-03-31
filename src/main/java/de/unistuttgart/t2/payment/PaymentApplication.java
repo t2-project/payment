@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
 
 import de.unistuttgart.t2.payment.saga.PaymentCommandHandler;
 import io.eventuate.tram.sagas.participant.SagaCommandDispatcher;
@@ -24,6 +26,17 @@ public class PaymentApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PaymentApplication.class, args);
+	}
+	
+	@Bean
+	public RestTemplate template() {	
+//		int timeout = 5000;
+//	    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory
+//	      = new HttpComponentsClientHttpRequestFactory();
+//	    clientHttpRequestFactory.setConnectTimeout(timeout);
+//		
+//		return new RestTemplate(clientHttpRequestFactory);
+		return new RestTemplate();
 	}
 
 	@Bean
