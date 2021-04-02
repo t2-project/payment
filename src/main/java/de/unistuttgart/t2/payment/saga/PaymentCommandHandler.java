@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.unistuttgart.t2.common.commands.ActionCommand;
 import de.unistuttgart.t2.common.commands.SagaCommand;
+import de.unistuttgart.t2.common.domain.saga.SagaData;
 import de.unistuttgart.t2.payment.PaymentService;
 import io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder;
 import io.eventuate.tram.commands.consumer.CommandHandlers;
@@ -35,9 +36,12 @@ public class PaymentCommandHandler {
 	 */
 	public Message doAction(CommandMessage<ActionCommand> cm) {
 		LOG.info("payment received action");
-		ActionCommand ccc = cm.getCommand();
+		SagaData ccc = cm.getCommand().getData();
+		
+		CreditCardInfo info = new CreditCardInfo(ccc.getCardNumber(), ccc.getCardOwner(), ccc.getChecksum());
+		
 		try {
-			paymentService.handleSagaAction(ccc.getData().getCreditCardInfo(), ccc.getData().getTotal());
+			paymentService.handleSagaAction(info, ccc.getTotal());
 			return CommandHandlerReplyBuilder.withSuccess();
 		} catch (Exception e) {
 			LOG.error(e.getMessage());

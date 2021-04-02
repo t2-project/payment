@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.client.RestTemplate;
 
-import de.unistuttgart.t2.common.domain.saga.CreditCardInfo;
+import de.unistuttgart.t2.payment.saga.CreditCardInfo;
 
 public class PaymentService {
 	
