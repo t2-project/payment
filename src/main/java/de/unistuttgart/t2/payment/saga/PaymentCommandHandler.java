@@ -44,7 +44,7 @@ public class PaymentCommandHandler {
 			paymentService.handleSagaAction(info, ccc.getTotal());
 			return CommandHandlerReplyBuilder.withSuccess();
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			LOG.error("payment failed with : " + e.getMessage());
 			return CommandHandlerReplyBuilder.withFailure();
 		}
 	}
