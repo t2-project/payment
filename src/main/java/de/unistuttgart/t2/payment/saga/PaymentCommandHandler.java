@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.unistuttgart.t2.common.commands.ActionCommand;
-import de.unistuttgart.t2.common.commands.SagaCommand;
-import de.unistuttgart.t2.common.domain.saga.SagaData;
+import de.unistuttgart.t2.common.saga.SagaData;
+import de.unistuttgart.t2.common.saga.commands.ActionCommand;
+import de.unistuttgart.t2.common.saga.commands.SagaCommand;
 import de.unistuttgart.t2.payment.PaymentService;
 import io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder;
 import io.eventuate.tram.commands.consumer.CommandHandlers;
