@@ -5,16 +5,10 @@ import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.web.client.RestTemplate;
 
 import de.unistuttgart.t2.payment.saga.CreditCardInfo;
 
 public class PaymentService {
-	
-	@Autowired
-	RestTemplate template;
 	
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
