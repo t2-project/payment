@@ -14,7 +14,7 @@ public class PaymentService {
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
 	@Value("${payment.provider.dummy.url}")
-	String providerUrl;
+	protected String providerUrl;
 	
 	@Autowired 
 	RestTemplate template;
