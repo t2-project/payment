@@ -31,17 +31,17 @@ public class PaymentCommandHandler {
 	 * message. if the service crashes midway, and no message is returned, then the
 	 * incoming message remains in the queue!!
 	 * 
-	 * @param cm
-	 * @return
+	 * @param message the command 
+	 * @return reply message, either success of failure
 	 */
-	public Message doAction(CommandMessage<ActionCommand> cm) {
+	public Message doAction(CommandMessage<ActionCommand> message) {
 		LOG.info("payment received action");
-		SagaData ccc = cm.getCommand().getData();
+		SagaData sagaData = message.getCommand().getData();
 		
-		CreditCardInfo info = new CreditCardInfo(ccc.getCardNumber(), ccc.getCardOwner(), ccc.getChecksum());
+		CreditCardInfo info = new CreditCardInfo(sagaData.getCardNumber(), sagaData.getCardOwner(), sagaData.getChecksum());
 		
 		try {
-			paymentService.handleSagaAction(info, ccc.getTotal());
+			paymentService.handleSagaAction(info, sagaData.getTotal());
 			return CommandHandlerReplyBuilder.withSuccess();
 		} catch (Exception e) {
 			LOG.error("payment failed with : " + e.getMessage());

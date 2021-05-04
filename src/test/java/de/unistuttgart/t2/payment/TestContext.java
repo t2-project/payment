@@ -9,15 +9,13 @@ import org.springframework.web.client.RestTemplate;
 @Profile("test")
 public class TestContext {
 
-	@Bean
-	public RestTemplate template() {
-		return new RestTemplate ();
-	}
-	
-	@Bean
-	public PaymentService service() {
-		return new PaymentService();
-	}
+    @Bean
+    public RestTemplate template() {
+        return new RestTemplate();
+    }
 
-	
+    @Bean
+    public PaymentService service() {
+        return new PaymentService();
+    }
 }

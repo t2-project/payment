@@ -13,18 +13,15 @@ import io.eventuate.tram.spring.messaging.common.TramMessagingCommonAutoConfigur
 /**
  * Configuration that excludes saga related things from the auto configuration.
  * 
- * Tram* are from the actual saga and Data* and Hibernate are from the db, that the CDC needs. 
- *  
+ * Tram* are from the actual saga and Data* and Hibernate are from the db, that
+ * the CDC needs.
+ * 
  * @author maumau
  *
  */
-@EnableAutoConfiguration(exclude = {
-		TramMessagingCommonAutoConfiguration.class, 
-	    TramConsumerJdbcAutoConfiguration.class, 
-	    DataSourceAutoConfiguration.class, 
-	    DataSourceTransactionManagerAutoConfiguration.class, 
-	    HibernateJpaAutoConfiguration.class
-	})
+@EnableAutoConfiguration(exclude = { TramMessagingCommonAutoConfiguration.class,
+        TramConsumerJdbcAutoConfiguration.class, DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @Profile("test")
 @Configuration
 public class ExcludeSagaConfig {

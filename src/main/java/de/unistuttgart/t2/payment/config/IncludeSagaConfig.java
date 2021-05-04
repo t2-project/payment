@@ -22,22 +22,22 @@ import io.eventuate.tram.spring.messaging.producer.jdbc.TramMessageProducerJdbcC
  *
  */
 @Import({ SagaParticipantConfiguration.class, TramMessageProducerJdbcConfiguration.class,
-		EventuateTramKafkaMessageConsumerConfiguration.class }) // , OptimisticLockingDecoratorConfiguration.class})
+        EventuateTramKafkaMessageConsumerConfiguration.class }) // , OptimisticLockingDecoratorConfiguration.class})
 @EnableJpaRepositories
 @EnableAutoConfiguration
 @Profile("!test")
 @Configuration
 public class IncludeSagaConfig {
 
-	@Bean
-	public PaymentCommandHandler paymentCommandHandler() {
-		return new PaymentCommandHandler();
-	}
+    @Bean
+    public PaymentCommandHandler paymentCommandHandler() {
+        return new PaymentCommandHandler();
+    }
 
-	@Bean
-	public SagaCommandDispatcher paymentCommandDispatcher(PaymentCommandHandler target,
-			SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
+    @Bean
+    public SagaCommandDispatcher paymentCommandDispatcher(PaymentCommandHandler target,
+            SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
 
-		return sagaCommandDispatcherFactory.make("paymentCommandDispatcher", target.commandHandlers());
-	}
+        return sagaCommandDispatcherFactory.make("paymentCommandDispatcher", target.commandHandlers());
+    }
 }

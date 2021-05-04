@@ -48,8 +48,7 @@ public class PaymentTest {
 	}
 	
 	@Test
-	public void testTest() throws Exception {
-		
+	public void testTest() throws Exception {	
 		mockServer.expect(ExpectedCount.once(), requestTo(service.providerUrl)).andExpect(method(HttpMethod.POST))
 				.andRespond(withStatus(HttpStatus.OK));
 
@@ -57,6 +56,4 @@ public class PaymentTest {
 		service.handleSagaAction(info, total);
 		mockServer.verify();
 	}
-
-
 }

@@ -7,7 +7,8 @@ contacts some credit institute to execute payment.
 
 property | read from env var | description |
 -------- | ----------------- | ----------- |
-payment.provider.dummy.url | PAYMENT_PROVIDER_DUMMY_URL | url of the credit institute
+t2.payment.provider.dummy.url | T2_PAYMENT_PROVIDER_DUMMY_URL | url of the credit institute
+t2.payment.provider.timeout | T2_PAYMENT_PROVIDER_TIMEOUT | timeout in seconds
 
 
 

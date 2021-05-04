@@ -9,26 +9,30 @@ package de.unistuttgart.t2.payment.saga;
  *
  */
 public class CreditCardInfo {
-	private String cardNumber;
-	private String cardOwner;
-	private String checksum;
-	
-	public CreditCardInfo() {
-		super();
-	}
-	public CreditCardInfo(String cardNumber, String cardOwner, String checksum) {
-		super();
-		this.cardNumber = cardNumber;
-		this.cardOwner = cardOwner;
-		this.checksum = checksum;
-	}
-	public String getCardNumber() {
-		return cardNumber;
-	}
-	public String getCardOwner() {
-		return cardOwner;
-	}
-	public String getChecksum() {
-		return checksum;
-	}
+    private String cardNumber;
+    private String cardOwner;
+    private String checksum;
+
+    public CreditCardInfo() {
+        super();
+    }
+
+    public CreditCardInfo(String cardNumber, String cardOwner, String checksum) {
+        super();
+        this.cardNumber = cardNumber;
+        this.cardOwner = cardOwner;
+        this.checksum = checksum;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public String getCardOwner() {
+        return cardOwner;
+    }
+
+    public String getChecksum() {
+        return checksum;
+    }
 }
