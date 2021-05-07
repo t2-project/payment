@@ -48,24 +48,24 @@
 		<dependency>
 			<groupId>io.eventuate.tram.core</groupId>
 			<artifactId>eventuate-tram-spring-events</artifactId>
-			<version>0.26.1.RELEASE</version>
+			<version>${TRAM_VERSION}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.eventuate.tram.core</groupId>
 			<artifactId>eventuate-tram-spring-commands</artifactId>
-			<version>0.26.1.RELEASE</version>
+			<version>${TRAM_VERSION}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.eventuate.tram.core</groupId>
 			<artifactId>eventuate-tram-spring-messaging</artifactId>
-			<version>0.26.1.RELEASE</version>
+			<version>${TRAM_VERSION}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.eventuate.tram.sagas/eventuate-tram-sagas-spring-participant -->
 		<dependency>
 			<groupId>io.eventuate.tram.sagas</groupId>
 			<artifactId>eventuate-tram-sagas-spring-participant</artifactId>
-			<version>0.15.2.RELEASE</version>
+			<version>${TRAM_PARTICIPANT_VERSION}</version>
 		</dependency>
 
 		<!-- FOR THE CDC -->
@@ -73,20 +73,27 @@
 		<dependency>
 			<groupId>io.eventuate.tram.core</groupId>
 			<artifactId>eventuate-tram-spring-producer-jdbc</artifactId>
-			<version>0.26.1.RELEASE</version>
+			<version>${TRAM_VERSION}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.eventuate.tram.core/eventuate-tram-spring-consumer-jdbc -->
 		<dependency>
 			<groupId>io.eventuate.tram.core</groupId>
 			<artifactId>eventuate-tram-spring-consumer-jdbc</artifactId>
-			<version>0.26.1.RELEASE</version>
+			<version>${TRAM_VERSION}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/io.eventuate.tram.core/eventuate-tram-spring-consumer-kafka -->
 		<dependency>
 			<groupId>io.eventuate.tram.core</groupId>
 			<artifactId>eventuate-tram-spring-consumer-kafka</artifactId>
-			<version>0.24.0.RELEASE</version>
+			<version>${TRAM_VERSION}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/io.eventuate.tram.core/eventuate-tram-spring-optimistic-locking -->
+		<dependency>
+			<groupId>io.eventuate.tram.core</groupId>
+			<artifactId>eventuate-tram-spring-optimistic-locking</artifactId>
+			<version>${TRAM_VERSION}</version>
 		</dependency>
 
 		<!-- common things -->
@@ -106,7 +113,7 @@
 		<dependency>
 			<groupId>io.github.resilience4j</groupId>
 			<artifactId>resilience4j-retry</artifactId>
-			<version>1.7.0</version>
+			<version>${RESILIENCE4J_VERSION}</version>
 		</dependency>
 	</dependencies>
 
