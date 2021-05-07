@@ -37,11 +37,11 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
     - name: build common
-      run: cd common && . ./setenv.sh && echo $TRAM_VERSION && mvn clean install
+      run: cd common && mvn clean install
     - name: install common
-      run: cd common && . ./setenv.sh && echo $TRAM_VERSION && mvn install:install-file -Dfile=./target/common-1.0-SNAPSHOT.jar  -DpomFile=./pom.xml
+      run: cd common && mvn install:install-file -Dfile=./target/common-1.0-SNAPSHOT.jar  -DpomFile=./pom.xml
     - name: verify payment
-      run: cd payment && . ./setenv.sh && echo $TRAM_VERSION && mvn clean install
+      run: cd payment && mvn clean install
 #
 # that's how cool kids would do their tags:       
 #        docker build -t stiesssh/payment:${{ env.RELEASE_VERSION }} .
