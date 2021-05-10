@@ -4,17 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import de.unistuttgart.t2.payment.provider.PaymentData;
-import de.unistuttgart.t2.payment.saga.CreditCardInfo;
+import de.unistuttgart.t2.common.saga.SagaData;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryConfig;
 import io.github.resilience4j.retry.RetryRegistry;
 
 /**
- * This service contacts the payment provider, e.g. some credit institute, to
+ * Contacts a payment provider, e.g. some credit institute, to
  * execute the payment.
  * 
  * @author maumau
@@ -33,7 +31,7 @@ public class PaymentService {
     // retry stuff
     RetryConfig config = RetryConfig.custom().maxAttempts(2).build();
     RetryRegistry registry = RetryRegistry.of(config);
-    Retry retry = registry.retry("why_does_a_retry_need_a_name?");
+    Retry retry = registry.retry("paymentRetry");
 
     /**
      * contact some payment provider to execute the payment.
@@ -41,17 +39,13 @@ public class PaymentService {
      * the call might either timeout, or the payment itself might fail, or it is
      * successful.
      * 
-     * @param card  information about the credit card
-     * @param total money to be payed
+     * @param data information about payment
      */
-    public void handleSagaAction(CreditCardInfo card, double total) {
-        if (card.getChecksum().equals("tolazytostartprovider")) {
-            return;
-        }
+    public void handleSagaAction(SagaData data) {
         LOG.info("post to " + providerUrl);
 
         Retry.decorateSupplier(retry, () -> template.postForObject(providerUrl,
-                new PaymentData(card.getCardNumber(), card.getCardOwner(), card.getChecksum(), total), Void.class))
+                new PaymentData(data.getCardNumber(), data.getCardOwner(), data.getChecksum(), data.getTotal()), Void.class))
                 .get();
     }
 }

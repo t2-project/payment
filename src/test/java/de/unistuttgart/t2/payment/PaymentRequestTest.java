@@ -1,6 +1,7 @@
 package de.unistuttgart.t2.payment;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -17,10 +19,10 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
-import de.unistuttgart.t2.payment.saga.CreditCardInfo;
+import de.unistuttgart.t2.common.saga.SagaData;
 
 /**
- * Test whether Payment service retries requests as it should.
+ * Test whether Payment service makes requests and retries as it should.
  * 
  * 
  * @author maumau
@@ -29,7 +31,7 @@ import de.unistuttgart.t2.payment.saga.CreditCardInfo;
 @ExtendWith(MockitoExtension.class)
 @SpringJUnitConfig(TestContext.class)
 @ActiveProfiles("test")
-public class PaymentRequestRetryTest {
+public class PaymentRequestTest {
 
     @Autowired
     PaymentService service;
@@ -39,6 +41,8 @@ public class PaymentRequestRetryTest {
 
     private MockRestServiceServer mockServer;
     private String testurl = "http://foo.bar/pay";
+    
+    SagaData data = new SagaData("cardNumber", "cardOwner", "checksum", "sessionId",  1234.5);
 
     @BeforeEach
     public void setUp() {
@@ -47,14 +51,24 @@ public class PaymentRequestRetryTest {
     }
 
     @Test
-    public void testRequestPayment() {
+    public void testRequestRetry() {
         mockServer.expect(ExpectedCount.twice(), requestTo(testurl))
                 .andRespond(withStatus(HttpStatus.INTERNAL_SERVER_ERROR));
 
         // execute
         assertThrows(InternalServerError.class, () -> {
-            service.handleSagaAction(new CreditCardInfo("cardNumber", "cardOwner", "checksum"), 42.0);
+            service.handleSagaAction(data);
         });
+        mockServer.verify();
+    }
+    
+    @Test
+    public void testRequest() throws Exception {   
+        mockServer.expect(ExpectedCount.once(), requestTo(testurl)).andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.OK));
+
+        // execute
+        service.handleSagaAction(data);
         mockServer.verify();
     }
 }
