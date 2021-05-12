@@ -1,22 +1,40 @@
-# payment
+# Payment Service
 
-payment service for the t2 store.
-contacts some credit institute to execute payment.
+This service is part of the T2 Store.
+It is responsible for contacting the payment provider.
 
-## application properties
+In a more real situation, a payment service would contact different payment providers, e.g. paypal or a certain credit institute based on which payment method a user chose.
+However this payment service knows only one payment provider and always contact that one.
+
+The payment provider can be e.g. the [Credit Institute Service](https://github.com/t2-project/creditinstitute) or the [e2e Test Service](https://github.com/t2-project/e2etest).
+
+
+## Build and Run Manually
+
+_**TODO: copy from Order was mangus checked it.**_
+
+## Usage
+
+This service listens to incoming messages on a queue named 'payment'. 
+The [orchestrator](https://github.com/t2-project/orchestrator) sends messages to that queue. 
+
+Normally you do not want to interact directly with the payment service. 
+However it might by usefull to run it localy for debugging. 
+
+## Application Properties
 
 property | read from env var | description |
 -------- | ----------------- | ----------- |
-t2.payment.provider.dummy.url | T2_PAYMENT_PROVIDER_DUMMY_URL | url of the credit institute
-t2.payment.provider.timeout | T2_PAYMENT_PROVIDER_TIMEOUT | timeout in seconds
+t2.payment.provider.dummy.url | T2_PAYMENT_PROVIDER_DUMMY_URL | url of the payment provider.
+t2.payment.provider.timeout | T2_PAYMENT_PROVIDER_TIMEOUT | timeout in seconds. the payment service waits this long for an reply from the payment provider.
 
 
 
-properties for the CDC:
-see (eventuate tram cdc)[https://eventuate.io/docs/manual/eventuate-tram/latest/getting-started-eventuate-tram.html] for explanations.
+Properties for the CDC.
+Confere [eventuate tram cdc](https://eventuate.io/docs/manual/eventuate-tram/latest/getting-started-eventuate-tram.html) for explanations.
 
-property | read from env var | description |
--------- | ----------------- | ----------- |
+property | read from env var |
+-------- | ----------------- |
 spring.datasource.url | SPRING_DATASOURCE_URL |
 spring.datasource.username | SPRING_DATASOURCE_USERNAME |
 spring.datasource.password | SPRING_DATASOURCE_PASSWORD |
