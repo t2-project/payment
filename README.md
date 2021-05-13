@@ -9,9 +9,9 @@ However this payment service knows only one payment provider and always contact 
 The payment provider can be e.g. the [Credit Institute Service](https://github.com/t2-project/creditinstitute) or the [e2e Test Service](https://github.com/t2-project/e2etest).
 
 
-## Build and Run Manually
+## Build and Run
 
-_**TODO: copy from Order was mangus checked it.**_
+Confer the [Documentation](https://t2-documentation.readthedocs.io/en/latest/guides/kube.html) on how to build, run or deploy the T2 Store services.
 
 ## Usage
 
