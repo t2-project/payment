@@ -115,6 +115,13 @@
 			<artifactId>resilience4j-retry</artifactId>
 			<version>${RESILIENCE4J_VERSION}</version>
 		</dependency>
+
+        <!-- tracing -->
+        <dependency>
+	        <groupId>io.opentracing.contrib</groupId>
+		    <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+    		<version>${JAEGER_VERSION}</version>
+	    </dependency>
 	</dependencies>
 
 	<build>
