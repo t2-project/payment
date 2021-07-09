@@ -1,10 +1,7 @@
 name: build and push docker image
-on:
-  push:
-    branches: 
-      - 'main'
-#  release:
-#    types: [published]
+on: push
+
+
 jobs:
   dockerhub:
     name: Push Docker image to Docker Hub
@@ -17,6 +14,8 @@ jobs:
          echo "RESILIENCE4J_VERSION=${{secrets.RESILIENCE4J_VERSION}}" >> $GITHUB_ENV
          echo "JUNIT4_VERSION=${{secrets.JUNIT4_VERSION}}" >> $GITHUB_ENV
          echo "TRAM_PARTICIPANT_VERSION=${{secrets.TRAM_PARTICIPANT_VERSION}}" >> $GITHUB_ENV
+         echo "MICROMETER_VERSION=${{secrets.MICROMETER_VERSION}}" >> $GITHUB_ENV
+         echo "JACOCO_VERSION=${{secrets.JACOCO_VERSION}}" >> $GITHUB_ENV
     - name: Login to DockerHub
       uses: docker/login-action@v1 
       with:
@@ -37,11 +36,11 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
     - name: build common
-      run: cd common && mvn clean install
+      run: cd common && ./mvnw clean install
     - name: install common
-      run: cd common && mvn install:install-file -Dfile=./target/common-1.0-SNAPSHOT.jar  -DpomFile=./pom.xml
+      run: cd common && ./mvnw install:install-file -Dfile=./target/common-1.0-SNAPSHOT.jar  -DpomFile=./pom.xml
     - name: verify payment
-      run: cd payment && mvn clean install
+      run: cd payment && ./mvnw clean install
 #
 # that's how cool kids would do their tags:       
 #        docker build -t stiesssh/payment:${{ env.RELEASE_VERSION }} .
@@ -53,5 +52,5 @@ jobs:
         echo ${{ env.RELEASE_VERSION }}
         echo $RELEASE_VERSION
         cd payment
-        docker build -t stiesssh/payment:v0.1.0 .
-        docker push stiesssh/payment:v0.1.0
+        docker build -t stiesssh/payment:${{ env.RELEASE_VERSION }} .
+        docker push stiesssh/payment:${{ env.RELEASE_VERSION }}
