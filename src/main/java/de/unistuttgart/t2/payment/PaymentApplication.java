@@ -13,12 +13,15 @@ import org.springframework.web.client.RestTemplate;
 
 import de.unistuttgart.t2.payment.config.ExcludeSagaConfig;
 import de.unistuttgart.t2.payment.config.IncludeSagaConfig;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 
 @Import({ IncludeSagaConfig.class, ExcludeSagaConfig.class })
 @EnableAutoConfiguration
 @SpringBootApplication
 public class PaymentApplication {
-    
+
     @Value("${t2.payment.provider.timeout:10}")
     public int timeout;
 
@@ -34,9 +37,13 @@ public class PaymentApplication {
     @Bean
     public RestTemplate template(RestTemplateBuilder restTemplateBuilder) {
 
-        return restTemplateBuilder
-                .setConnectTimeout(Duration.ofSeconds(timeout))
-                .setReadTimeout(Duration.ofSeconds(timeout))
-                .build();
+        return restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(timeout))
+                .setReadTimeout(Duration.ofSeconds(timeout)).build();
+    }
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI().components(new Components())
+                .info(new Info().title("Payment service API").description("API of the T2 Store's payment service."));
     }
 }
