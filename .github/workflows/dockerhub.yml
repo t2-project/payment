@@ -41,10 +41,6 @@ jobs:
       run: cd common && ./mvnw install:install-file -Dfile=./target/common-1.0-SNAPSHOT.jar  -DpomFile=./pom.xml
     - name: verify payment
       run: cd payment && ./mvnw clean install
-#
-# that's how cool kids would do their tags:       
-#        docker build -t stiesssh/payment:${{ env.RELEASE_VERSION }} .
-#        docker push stiesssh/payment:${{ env.RELEASE_VERSION }}
     - run: |
         echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
     - name: Build and push (manual)
@@ -52,5 +48,5 @@ jobs:
         echo ${{ env.RELEASE_VERSION }}
         echo $RELEASE_VERSION
         cd payment
-        docker build -t stiesssh/payment:${{ env.RELEASE_VERSION }} .
-        docker push stiesssh/payment:${{ env.RELEASE_VERSION }}
+        docker build -t t2project/payment:${{ env.RELEASE_VERSION }} .
+        docker push t2project/payment:${{ env.RELEASE_VERSION }}
