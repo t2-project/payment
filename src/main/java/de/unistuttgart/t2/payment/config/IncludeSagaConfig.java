@@ -1,30 +1,23 @@
 package de.unistuttgart.t2.payment.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import de.unistuttgart.t2.payment.saga.PaymentCommandHandler;
-import io.eventuate.tram.sagas.participant.SagaCommandDispatcher;
-import io.eventuate.tram.sagas.participant.SagaCommandDispatcherFactory;
+import io.eventuate.tram.sagas.participant.*;
 import io.eventuate.tram.sagas.spring.participant.SagaParticipantConfiguration;
 import io.eventuate.tram.spring.consumer.kafka.EventuateTramKafkaMessageConsumerConfiguration;
 import io.eventuate.tram.spring.messaging.producer.jdbc.TramMessageProducerJdbcConfiguration;
 import io.eventuate.tram.spring.optimisticlocking.OptimisticLockingDecoratorConfiguration;
 
 /**
- * Configuration to run application with saga. 
- * 
- * Supposed to be used when CDC service is up and running somewhere.
- * 
- * @author maumau
+ * Configuration to run application with saga. Supposed to be used when CDC service is up and running somewhere.
  *
+ * @author maumau
  */
 @Import({ SagaParticipantConfiguration.class, TramMessageProducerJdbcConfiguration.class,
-        EventuateTramKafkaMessageConsumerConfiguration.class, OptimisticLockingDecoratorConfiguration.class})
+          EventuateTramKafkaMessageConsumerConfiguration.class, OptimisticLockingDecoratorConfiguration.class })
 @EnableJpaRepositories
 @EnableAutoConfiguration
 @Profile("!test")
@@ -38,7 +31,7 @@ public class IncludeSagaConfig {
 
     @Bean
     public SagaCommandDispatcher paymentCommandDispatcher(PaymentCommandHandler target,
-            SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
+        SagaCommandDispatcherFactory sagaCommandDispatcherFactory) {
 
         return sagaCommandDispatcherFactory.make("paymentCommandDispatcher", target.commandHandlers());
     }

@@ -1,35 +1,22 @@
 package de.unistuttgart.t2.payment.saga;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.unistuttgart.t2.common.saga.SagaData;
-import de.unistuttgart.t2.common.saga.commands.ActionCommand;
-import de.unistuttgart.t2.common.saga.commands.SagaCommand;
+import de.unistuttgart.t2.common.saga.commands.*;
 import de.unistuttgart.t2.payment.PaymentService;
-import io.eventuate.tram.commands.consumer.CommandHandlerReplyBuilder;
-import io.eventuate.tram.commands.consumer.CommandHandlers;
-import io.eventuate.tram.commands.consumer.CommandMessage;
+import io.eventuate.tram.commands.consumer.*;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.sagas.participant.SagaCommandHandlersBuilder;
 
 /**
- * handles messages for the payment service.
- * 
- * listens to the {@code payment} queue.
- * 
- * executes payment upon receiving a
- * {@link de.unistuttgart.t2.common.saga.commands.ActionCommand ActionCommand}
- * or rejects an
+ * handles messages for the payment service. listens to the {@code payment} queue. executes payment upon receiving a
+ * {@link de.unistuttgart.t2.common.saga.commands.ActionCommand ActionCommand} or rejects an does not listen for
+ * {@link de.unistuttgart.t2.common.saga.commands.CompensationCommand CompensationCommand} because the payment service
+ * has the pivot transaction (i.e. needs no compensation)
  *
- * does not listen for
- * {@link de.unistuttgart.t2.common.saga.commands.CompensationCommand
- * CompensationCommand} because the payment service has the pivot transaction
- * (i.e. needs no compensation)
- * 
  * @author stiesssh
- *
  */
 public class PaymentCommandHandler {
 
@@ -40,12 +27,12 @@ public class PaymentCommandHandler {
 
     public CommandHandlers commandHandlers() {
         return SagaCommandHandlersBuilder.fromChannel(SagaCommand.payment)
-                .onMessage(ActionCommand.class, this::doAction).build();
+            .onMessage(ActionCommand.class, this::doAction).build();
     }
 
     /**
      * do some payment.
-     * 
+     *
      * @param message the command
      * @return reply message, either success of failure
      */

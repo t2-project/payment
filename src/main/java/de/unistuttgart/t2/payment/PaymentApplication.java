@@ -35,12 +35,12 @@ public class PaymentApplication {
     public RestTemplate template(RestTemplateBuilder restTemplateBuilder) {
 
         return restTemplateBuilder.setConnectTimeout(Duration.ofSeconds(timeout))
-                .setReadTimeout(Duration.ofSeconds(timeout)).build();
+            .setReadTimeout(Duration.ofSeconds(timeout)).build();
     }
 
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI().components(new Components())
-                .info(new Info().title("Payment service API").description("API of the T2 Store's payment service."));
+            .info(new Info().title("Payment service API").description("API of the T2 Store's payment service."));
     }
 }
