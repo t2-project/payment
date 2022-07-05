@@ -15,9 +15,9 @@ import io.eventuate.tram.spring.messaging.common.TramMessagingCommonAutoConfigur
  * @author maumau
  */
 @EnableAutoConfiguration(exclude = { TramMessagingCommonAutoConfiguration.class,
-                                     TramConsumerJdbcAutoConfiguration.class, DataSourceAutoConfiguration.class,
-                                     DataSourceTransactionManagerAutoConfiguration.class,
-                                     HibernateJpaAutoConfiguration.class })
+    TramConsumerJdbcAutoConfiguration.class, DataSourceAutoConfiguration.class,
+    DataSourceTransactionManagerAutoConfiguration.class,
+    HibernateJpaAutoConfiguration.class })
 @Profile("test")
 @Configuration
 public class ExcludeSagaConfig {

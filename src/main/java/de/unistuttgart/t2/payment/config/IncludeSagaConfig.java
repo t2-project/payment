@@ -17,7 +17,7 @@ import io.eventuate.tram.spring.optimisticlocking.OptimisticLockingDecoratorConf
  * @author maumau
  */
 @Import({ SagaParticipantConfiguration.class, TramMessageProducerJdbcConfiguration.class,
-          EventuateTramKafkaMessageConsumerConfiguration.class, OptimisticLockingDecoratorConfiguration.class })
+    EventuateTramKafkaMessageConsumerConfiguration.class, OptimisticLockingDecoratorConfiguration.class })
 @EnableJpaRepositories
 @EnableAutoConfiguration
 @Profile("!test")
