@@ -1,6 +1,6 @@
 # Payment Service
 
-This service is part of the T2 Store.
+This service is part of the T2-Project.
 It is responsible for contacting the payment provider.
 
 In a more real situation, a payment service would contact different payment providers, e.g. paypal or a certain credit institute based on which payment method a user chose.
@@ -11,7 +11,7 @@ The payment provider can be e.g. the [Credit Institute Service](https://github.c
 
 ## Build and Run
 
-Confer the [Documentation](https://t2-documentation.readthedocs.io/en/latest/guides/kube.html) on how to build, run or deploy the T2 Store services.
+Confer the [Documentation](https://t2-documentation.readthedocs.io/en/latest/guides/kube.html) on how to build, run or deploy the T2-Project services.
 
 ## Usage
 

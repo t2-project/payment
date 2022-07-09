@@ -36,3 +36,4 @@ build/
 **/*.log
 **/*.swp
 **/*local.properties
+/test-classes/
