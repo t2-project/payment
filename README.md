@@ -19,7 +19,7 @@ This service listens to incoming messages on a queue named 'payment'.
 The [orchestrator](https://github.com/t2-project/orchestrator) sends messages to that queue. 
 
 Normally you do not want to interact directly with the payment service. 
-However it might by usefull to run it localy for debugging. 
+However it might by useful to run it localy for debugging. 
 
 ## Application Properties
 
