@@ -11,7 +11,7 @@
     <artifactId>payment</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>payment</name>
-    <description>payment for t2 store</description>
+    <description>payment for T2-Project</description>
     <properties>
         <java.version>11</java.version>
     </properties>

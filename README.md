@@ -1,6 +1,6 @@
 # Payment Service
 
-This service is part of the T2 Store.
+This service is part of the T2-Project.
 It is responsible for contacting the payment provider.
 
 In a more real situation, a payment service would contact different payment providers, e.g. paypal or a certain credit institute based on which payment method a user chose.
@@ -11,7 +11,7 @@ The payment provider can be e.g. the [Credit Institute Service](https://github.c
 
 ## Build and Run
 
-Confer the [Documentation](https://t2-documentation.readthedocs.io/en/latest/guides/kube.html) on how to build, run or deploy the T2 Store services.
+Confer the [Documentation](https://t2-documentation.readthedocs.io/en/latest/guides/kube.html) on how to build, run or deploy the T2-Project services.
 
 ## Usage
 
@@ -19,7 +19,7 @@ This service listens to incoming messages on a queue named 'payment'.
 The [orchestrator](https://github.com/t2-project/orchestrator) sends messages to that queue. 
 
 Normally you do not want to interact directly with the payment service. 
-However it might by usefull to run it localy for debugging. 
+However it might by useful to run it localy for debugging. 
 
 ## Application Properties
 
