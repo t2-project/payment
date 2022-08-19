@@ -16,7 +16,7 @@ import io.swagger.v3.oas.models.info.Info;
 
 @Import({ IncludeSagaConfig.class, ExcludeSagaConfig.class })
 @EnableAutoConfiguration
-@SpringBootApplication(scanBasePackageClasses = BaseScan.class)
+@SpringBootApplication(scanBasePackageClasses = { BaseScan.class, PaymentApplication.class })
 public class PaymentApplication {
 
     @Value("${t2.payment.provider.timeout:10}")
