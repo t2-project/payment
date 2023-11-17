@@ -3,10 +3,10 @@
 This service is part of the T2-Project.
 It is responsible for contacting the payment provider.
 
-In a more real situation, a payment service would contact different payment providers, e.g. paypal or a certain credit institute based on which payment method a user chose.
-However this payment service knows only one payment provider and always contact that one.
+In a more real situation, a payment service would contact different payment providers, e.g. PayPal or a certain credit institute based on which payment method a user chose.
+However, this payment service knows only one payment provider and always contact that one.
 
-The payment provider can be e.g. the [Credit Institute Service](https://github.com/t2-project/creditinstitute) or the [e2e Test Service](https://github.com/t2-project/e2etest).
+The payment provider can be e.g. the [Credit Institute service](https://github.com/t2-project/creditinstitute) or the [E2E Test service](https://github.com/t2-project/e2etest).
 
 ## Build and Run
 
@@ -18,7 +18,7 @@ This service listens to incoming messages on a queue named 'payment'.
 The [orchestrator](https://github.com/t2-project/orchestrator) sends messages to that queue.
 
 Normally you do not want to interact directly with the payment service.
-However it might by useful to run it locally for debugging.
+However, it might be useful to run it locally for debugging.
 
 ## Application Properties
 
