@@ -1,6 +1,7 @@
 package de.unistuttgart.t2.payment;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * All information that must be sent to the payment provider. This includes information about the credit cart and the

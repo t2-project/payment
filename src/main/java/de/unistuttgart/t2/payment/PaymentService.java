@@ -1,11 +1,14 @@
 package de.unistuttgart.t2.payment;
 
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
 import de.unistuttgart.t2.common.saga.SagaData;
-import io.github.resilience4j.retry.*;
+import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.retry.RetryRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Contacts a payment provider, e.g. some credit institute, to execute the payment.
