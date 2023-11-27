@@ -22,6 +22,9 @@ public class PaymentService {
     @Value("${t2.payment.provider.dummy.url}")
     protected String providerUrl;
 
+    @Value("${t2.payment.provider.enabled:true}")
+    protected boolean enabled;
+
     @Autowired
     RestTemplate template;
 
@@ -37,6 +40,12 @@ public class PaymentService {
      * @param data information about payment
      */
     public void handleSagaAction(SagaData data) {
+        if(!enabled) {
+            LOG.warn("Connecting to payment provider is disabled by configuration for testing purposes! " +
+                "Returning as payment was successful.");
+            return;
+        }
+
         LOG.info("post to " + providerUrl);
 
         Retry.decorateSupplier(retry, () -> template.postForObject(providerUrl,

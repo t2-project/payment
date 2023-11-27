@@ -24,6 +24,7 @@ However, it might be useful to run it locally for debugging.
 
 | property | read from env var | description |
 | -------- | ----------------- | ----------- |
+| t2.payment.provider.enabled | T2_PAYMENT_PROVIDER_ENABLED | boolean value, defaults to true. if false, no connection to payment provider is made. |
 | t2.payment.provider.dummy.url | T2_PAYMENT_PROVIDER_DUMMY_URL | url of the payment provider. |
 | t2.payment.provider.timeout | T2_PAYMENT_PROVIDER_TIMEOUT | timeout in seconds. the payment service waits this long for an reply from the payment provider. |
 
