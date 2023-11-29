@@ -1,17 +1,19 @@
 package de.unistuttgart.t2.payment;
 
-import java.time.Duration;
-
+import de.unistuttgart.t2.payment.config.ExcludeSagaConfig;
+import de.unistuttgart.t2.payment.config.IncludeSagaConfig;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.client.RestTemplate;
 
-import de.unistuttgart.t2.payment.config.*;
-import io.swagger.v3.oas.models.*;
-import io.swagger.v3.oas.models.info.Info;
+import java.time.Duration;
 
 @Import({ IncludeSagaConfig.class, ExcludeSagaConfig.class })
 @SpringBootApplication
@@ -37,8 +39,10 @@ public class PaymentApplication {
     }
 
     @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI().components(new Components())
-            .info(new Info().title("Payment service API").description("API of the T2-Project's payment service."));
+    public OpenAPI customOpenAPI(@Value("${info.app.version:unknown}") String version) {
+        return new OpenAPI().components(new Components()).info(new Info()
+            .title("T2 Payment service API")
+            .description("API of the T2-Project's payment service.")
+            .version(version));
     }
 }

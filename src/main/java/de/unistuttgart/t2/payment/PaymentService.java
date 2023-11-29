@@ -1,11 +1,14 @@
 package de.unistuttgart.t2.payment;
 
-import org.slf4j.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
 import de.unistuttgart.t2.common.saga.SagaData;
-import io.github.resilience4j.retry.*;
+import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryConfig;
+import io.github.resilience4j.retry.RetryRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Contacts a payment provider, e.g. some credit institute, to execute the payment.
@@ -18,6 +21,9 @@ public class PaymentService {
 
     @Value("${t2.payment.provider.dummy.url}")
     protected String providerUrl;
+
+    @Value("${t2.payment.provider.enabled:true}")
+    protected boolean enabled;
 
     @Autowired
     RestTemplate template;
@@ -34,6 +40,12 @@ public class PaymentService {
      * @param data information about payment
      */
     public void handleSagaAction(SagaData data) {
+        if(!enabled) {
+            LOG.warn("Connecting to payment provider is disabled by configuration for testing purposes! " +
+                "Returning as payment was successful.");
+            return;
+        }
+
         LOG.info("post to " + providerUrl);
 
         Retry.decorateSupplier(retry, () -> template.postForObject(providerUrl,
